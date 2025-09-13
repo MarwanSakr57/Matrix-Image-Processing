@@ -247,11 +247,14 @@ Image adjustContrast(const Image& input, float factor) {// --Marwan--
     int channels = input.getChannels();
     Image output(width, height, channels);
     
-    // TODO: Implement this function
-    // For each pixel and each channel:
-    //   new_value = factor * (input(y, x, c) - 128) + 128
-    //   output(y, x, c) = max(0, min(255, new_value))
-    
+    for(int i=0;i<height;i++){
+        for(int j=0;j<width ;j++){
+            for(int k=0;k<channels;k++){
+                int new_val= factor*(input(i,j,k)-128)+128;
+                output(i,j,k)=new_val;
+            }
+        }
+    }
     return output;
 }
 

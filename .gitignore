@@ -46,3 +46,6 @@
 
 # Temporary test files
 tempCodeRunnerFile.cpp
+
+#Output files
+.ppm

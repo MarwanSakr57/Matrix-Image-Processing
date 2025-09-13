@@ -274,14 +274,24 @@ Image applyBlur(const Image& input) {// --Marwan--
     int width = input.getWidth();
     int channels = input.getChannels();
     Image output(width, height, channels);
-    
-    // TODO: Implement this function
-    // For each pixel (from y=1 to height-2, x=1 to width-2) and each channel:
-    //   sum = 0
-    //   For each neighbor (ky from -1 to 1, kx from -1 to 1):
-    //     sum += input(y+ky, x+kx, c)
-    //   output(y, x, c) = sum / 9
-    
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            for (int k = 0; k < channels; k++) {
+                if (i > 0 && i < height - 1 && j > 0 && j < width - 1) {
+                    int sum = 0;
+                    for (int m = i - 1; m <= i + 1; m++) {
+                        for (int n = j - 1; n <= j + 1; n++) {
+                            sum += input(m, n, k);
+                        }
+                    }
+                    output(i, j, k) = (int)(sum / 9.0f);
+                } else {
+                    output(i, j, k) = input(i, j, k);
+                }
+            }
+        }
+    }
     return output;
 }
 

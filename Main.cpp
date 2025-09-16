@@ -226,6 +226,16 @@ Image adjustBrightness(const Image& input, int value) {// --Karim--
     //   new_value = input(y, x, c) + value
     //   output(y, x, c) = max(0, min(255, new_value))
     
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int c = 0; c < channels; c++) {
+                int new_value = input(y, x, c) + value;
+                new_value = max(0, min(255, new_value));
+                output(y, x, c) = new_value;
+            }
+        }
+    }
+
     return output;
 }
 

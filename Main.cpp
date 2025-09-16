@@ -132,7 +132,6 @@ public:
         }
     }
 };
-
 /**
  * Converts a color image to grayscale
  * 

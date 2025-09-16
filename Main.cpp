@@ -145,6 +145,7 @@ public:
  *    - Set the grayscale value in the output image
  * 3. Return the grayscale image
  */
+// ========================================================================================================
 Image convertToGrayscale(const Image& input) {// --Mazen--
     int height = input.getHeight();
     int width = input.getWidth();
@@ -152,13 +153,24 @@ Image convertToGrayscale(const Image& input) {// --Mazen--
     
     // TODO: Implement this function
     // For each pixel:
-    //   Get R, G, B values from input image
-    //   Calculate gray = 0.299*R + 0.587*G + 0.114*B
-    //   Set output(y, x, 0) = gray
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            //   Get R, G, B values from input image
+            int R = input(y, x, 0);
+            int G = input(y, x, 1);
+            int B = input(y, x, 2);
+            //   Calculate gray = 0.299*R + 0.587*G + 0.114*B
+            int gray = static_cast<int>(0.299 * R + 0.587 * G + 0.114 * B);
+            // Clamp to [0, 255]
+            gray = max(0, min(255, gray)); 
+            //   Set output(y, x, 0) = gray
+            output(y, x, 0) = gray;
+        }
+        }
     
     return output;
 }
-
+// ========================================================================================================
 /**
  * Flips image horizontally (left to right)
  * 

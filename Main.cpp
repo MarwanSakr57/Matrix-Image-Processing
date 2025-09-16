@@ -145,32 +145,23 @@ public:
  *    - Set the grayscale value in the output image
  * 3. Return the grayscale image
  */
-// ========================================================================================================
 Image convertToGrayscale(const Image& input) {// --Mazen--
     int height = input.getHeight();
     int width = input.getWidth();
-    Image output(width, height, 1); // Single channel for grayscale
-    
-    // TODO: Implement this function
-    // For each pixel:
+    Image output(width, height, 1); 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            //   Get R, G, B values from input image
             int R = input(y, x, 0);
             int G = input(y, x, 1);
             int B = input(y, x, 2);
-            //   Calculate gray = 0.299*R + 0.587*G + 0.114*B
             int gray = static_cast<int>(0.299 * R + 0.587 * G + 0.114 * B);
-            // Clamp to [0, 255]
             gray = max(0, min(255, gray)); 
-            //   Set output(y, x, 0) = gray
             output(y, x, 0) = gray;
         }
         }
     
     return output;
 }
-// ========================================================================================================
 /**
  * Flips image horizontally (left to right)
  * 
@@ -186,10 +177,6 @@ Image flipHorizontal(const Image& input) {// --Malak--
     int width = input.getWidth();
     int channels = input.getChannels();
     Image output(width, height, channels);
-    
-    // TODO: Implement this function
-    // For each pixel and each channel:
-    //   output(y, width-1-x, c) = input(y, x, c)
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             for (int c = 0; c < channels; c++) {
@@ -215,10 +202,6 @@ Image flipVertical(const Image& input) {// --Malak--
     int width = input.getWidth();
     int channels = input.getChannels();
     Image output(width, height, channels);
-    
-    // TODO: Implement this function
-    // For each pixel and each channel:
-    //   output(height-1-y, x, c) = input(y, x, c)
      for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             for (int c = 0; c < channels; c++) {
@@ -244,11 +227,6 @@ Image adjustBrightness(const Image& input, int value) {// --Karim--
     int width = input.getWidth();
     int channels = input.getChannels();
     Image output(width, height, channels);
-    
-    // TODO: Implement this function
-    // For each pixel and each channel:
-    //   new_value = input(y, x, c) + value
-    //   output(y, x, c) = max(0, min(255, new_value))
     
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
@@ -308,7 +286,6 @@ Image applyBlur(const Image& input) {// --Marwan--
     int width = input.getWidth();
     int channels = input.getChannels();
     Image output(width, height, channels);
-
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             for (int c = 0; c < channels; c++) {
@@ -349,11 +326,6 @@ Image rotate90(const Image& input) {
     int width = input.getWidth();
     int channels = input.getChannels();
     Image output(height, width, channels); 
-    
-    // TODO: Implement this function
-    // For each pixel and each channel:
-    //   output(x, height-1-y, c) = input(y, x, c)
-    
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             for (int c = 0; c < channels; c++) {
@@ -361,7 +333,6 @@ Image rotate90(const Image& input) {
             }
         }
     }
-    
     return output;
 }
 

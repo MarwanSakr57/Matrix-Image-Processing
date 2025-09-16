@@ -275,25 +275,30 @@ Image applyBlur(const Image& input) {// --Marwan--
     int channels = input.getChannels();
     Image output(width, height, channels);
 
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            for (int k = 0; k < channels; k++) {
-                if (i > 0 && i < height - 1 && j > 0 && j < width - 1) {
-                    int sum = 0;
-                    for (int m = i - 1; m <= i + 1; m++) {
-                        for (int n = j - 1; n <= j + 1; n++) {
-                            sum += input(m, n, k);
-                        }
-                    }
-                    output(i, j, k) = (int)(sum / 9.0f);
-                } else {
-                    output(i, j, k) = input(i, j, k);
-                }
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int c = 0; c < channels; c++) {
+                output(y, x, c) = input(y, x, c);
             }
         }
     }
+    for (int y = 1; y < height - 1; y++) {
+        for (int x = 1; x < width - 1; x++) {
+            for (int c = 0; c < channels; c++) {
+                int sum = 0;
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        sum += input(y + ky, x + kx, c);
+                    }
+                }
+                output(y, x, c) = sum / 9;
+            }
+        }
+    }
+
     return output;
 }
+
 
 /**
  * Rotates image 90 degrees clockwise
